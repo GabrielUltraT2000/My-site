@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="images/IconBogas.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Sinister Site</title>
+
+<section>
+<h2>Things I Like</h2>
+
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+@keyframes redWhiteFlicker {
+    0% { color: white; }
+    50% { color: red; }
+    100% { color: white; }
+}
+
+.side-title,
+.side-links span {
+    animation: redWhiteFlicker .5s infinite;
+}
+
+
+body {
+    color: white;
+    background: #111;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('images/Background/background.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.25;
+    z-index: -1;
+}
+
+header {
+    text-align: center;
+    padding: 30px 10px;
+    background: rgba(0,0,0,0.6);
+}
+
+section {
+    padding: 40px 10%;
+    background: rgba(0,0,0,0.6);
+    margin: 20px auto;
+    border-radius: 10px;
+    max-width: 1000px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+.side-links {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 5;
+}
+
+.side-links.left {
+    left: 50px;
+}
+
+.side-links.right {
+    right: 50px;
+}
+
+.side-links img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.side-links img:hover {
+    transform: scale(1.1);
+}
+
+.mural-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.mural-item {
+    background: rgba(255,255,255,0.08);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.mural-item:hover {
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.15);
+}
+
+.mural-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.mural-item h4 {
+    margin-top: 8px;
+}
+
+.mural-item p {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+
+.slider {
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.friend {
+    min-width: 100%;
+    text-align: center;
+}
+
+.friend img {
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.friend-name {
+    display: inline-block;
+    background: #d3d3d3;
+    color: black;
+    padding: 6px 14px;
+    border-radius: 8px;
+    margin: 8px auto 12px auto;
+    font-weight: bold;
+}
+
+.slider-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #444;
+    color: white;
+}
+
+button:hover {
+    background: #666;
+}
+.about p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+.interests ul {
+    list-style: square;
+    padding-left: 20px;
+}
+.music iframe {
+    width: 100%;
+    height: 152px;
+    border: none;
+    border-radius: 12px;
+}
+.map iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+    border-radius: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.6);
+    margin-top: 20px;
+}
+
+#birthdayNotif {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff4081;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 20;
+    font-weight: bold;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+}
+
+.popup-content {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.popup-content img {
+    width: 200px;
+    margin: 10px 0;
+}
+
+#confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Welcome to Sinister Site!</h1>
+<p>About me, my friends, and things I like</p>
+</header>
+<div class="side-links left">
+    <div class="side-title">Inspirations!!!</div>
+
+    <a href="https://www.youtube.com/@OCoelhoRosa" target="_blank">
+        <img src="images/Youtube/coelhorosa.png" alt="Coelho Rosa">
+       
+    </a>
+
+    <a href="https://www.youtube.com/@JoeDoughBoi_is_real" target="_blank">
+        <img src="images/Youtube/joe.png" alt="JoeDoughBoi">
+        
+    </a>
+</div>
+<div class="side-links right">
+    <div class="side-title">Inspirations!!!</div>
+
+    <a href="https://www.youtube.com/@CodaAnim" target="_blank">
+        <img src="images/Youtube/coda.png" alt="CodaAnim">
+     
+    </a>
+
+    <a href="https://www.youtube.com/@churgneygurgney9895" target="_blank">
+        <img src="images/Youtube/gurgney.png" alt="Gurgney">
+    
+    </a>
+</div>
+
+<div class="mural-grid">
+
+<div class="mural-item">
+    <a href="https://store.steampowered.com/app/250900/The_Binding_of_Isaac_Rebirth/" target="_blank">
+        <img src="images/Mural/isaac.png">
+    </a>
+    <h4>Favorite Game</h4>
+    <p>The binding of Isaac</p>
+</div>
+
+<div class="mural-item">
+    <a href="https://continued-exe.fandom.com/wiki/%22Sonic%22" target="_blank">
+        <img src="images/Mural/2017x.png">
+    </a>
+    <h4>Favorite Character</h4>
+    <p>2017x</p>
+</div>
+
+<div class="mural-item">
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+        <img src="images/Mural/art.png">
+    </a>
+    <h4>Fav hobbie</h4>
+    <p>Drawing</p>
+</div>
+
+<div class="mural-item">
+    <a href="https://open.spotify.com/artist/3LAEZsCc4CdQdyUUrdy0WK?si=vSL45y1hSTi3C0O0bxphQA" target="_blank">
+        <img src="images/Mural/gurgney.png">
+    </a>
+    <h4>Fav Artist</h4>
+    <p>Gurgney</p>
+</div>
+
+<div class="mural-item">
+    <a href="https://pt.wikipedia.org/wiki/Ben_10" target="_blank">
+        <img src="images/Mural/ben10.png">
+    </a>
+    <h4>Fav show</h4>
+    <p>Ben 10</p>
+</div>
+
+<div class="mural-item">
+    <a href="https://ashzs2.straw.page/" target="_blank">
+        <img src="images/Mural/zebezequiel.png">
+    </a>
+    <h4>My love</h4>
+    <p>I love my boyfriend</p>
+</div>
+
+<div class="mural-item">
+    <a href="https://www.etecbauru.com.br" target="_blank">
+        <img src="images/Mural/etec.png">
+    </a>
+    <h4>Sending hate to my school</h4>
+    <p>Fuck you ETEC rodrigues de abreu</p>
+</div>
+
+<div class="mural-item">
+    <a href="https://www.roblox.com/games/14608970270/Outcome-Memories-v0-2" target="_blank">
+        <img src="images/Mural/OM.png">
+    </a>
+    <h4>RIP</h4>
+    <p>Outcome memories</p>
+</div>
+
+
+</div>
+
+
+</div>
+</section>
+
+
+<section>
+<h2>My Friends!!</h2>
+
+<div class="slider">
+<div class="slides" id="slides">
+<div class="friend"><img src="images/bandu.png"><div class="friend-name">Bandu</div></div>
+<div class="friend"><img src="images/Ash.png"><div class="friend-name">Ash!</div></div>
+<div class="friend"><img src="images/ayko.png"><div class="friend-name">Ayko</div></div>
+<div class="friend"><img src="images/lagg.png"><div class="friend-name">Lagg</div></div>
+<div class="friend"><img src="images/benja.png"><div class="friend-name">Benja</div></div>
+<div class="friend"><img src="images/kaue.png"><div class="friend-name">Kaue</div></div>
+<div class="friend"><img src="images/feh.png"><div class="friend-name">Sunny</div></div>
+<div class="friend"><img src="images/eddie.png"><div class="friend-name">Eddie</div></div>
+<div class="friend"><img src="images/flowe.png"><div class="friend-name">FlowÆ</div></div>
+<div class="friend"><img src="images/furry.png"><div class="friend-name">Furry</div></div>
+<div class="friend"><img src="images/gappy.png"><div class="friend-name">Gappy</div></div>
+<div class="friend"><img src="images/hikku.png"><div class="friend-name">Hikky</div></div>
+<div class="friend"><img src="images/hiro.png"><div class="friend-name">Hiro</div></div>
+<div class="friend"><img src="images/jonas.png"><div class="friend-name">Jonas</div></div>
+<div class="friend"><img src="images/arfino.png"><div class="friend-name">Arfino</div></div>
+<div class="friend"><img src="images/poro.png"><div class="friend-name">Poro</div></div>
+<div class="friend"><img src="images/power.png"><div class="friend-name">Power</div></div>
+<div class="friend"><img src="images/lulu.png"><div class="friend-name">Lulu</div></div>
+<div class="friend"><img src="images/mouzo.png"><div class="friend-name">Mouzo</div></div>
+<div class="friend"><img src="images/tonica.png"><div class="friend-name">Tonica</div></div>
+<div class="friend"><img src="images/nicoy.png"><div class="friend-name">Nicoy</div></div>
+<div class="friend"><img src="images/GL.png"><div class="friend-name">GL</div></div>
+<div class="friend"><img src="images/taxiz.png"><div class="friend-name">Taxiz</div></div>
+<div class="friend"><img src="images/under.png"><div class="friend-name">Under</div></div>
+<div class="friend"><img src="images/kaiken.png"><div class="friend-name">Kaiken</div></div>
+<div class="friend"><img src="images/bluey.png"><div class="friend-name">Bluey</div></div>
+<div class="friend"><img src="images/rzk.png"><div class="friend-name">rzk</div></div>
+<div class="friend"><img src="images/gleso.png"><div class="friend-name">Gleisu</div></div>
+<div class="friend"><img src="images/rapox.png"><div class="friend-name">Rapox</div></div>
+<div class="friend"><img src="images/color.png"><div class="friend-name">Colorful</div></div>
+<div class="friend"><img src="images/sun.png"><div class="friend-name">Sun</div></div>
+<div class="friend"><img src="images/marry.png"><div class="friend-name">Marry</div></div>
+
+
+</div>
+</div>
+
+<div class="slider-buttons">
+<button onclick="prevSlide()">Previous</button>
+<button onclick="nextSlide()">Next</button>
+</div>
+</section>
+
+
+<section class="about">
+<h2>About Me</h2>
+<p>My name is Gabriel Dantas but just call me Gabe or Boogaloo!</p>
+<p>im 17 years old</p>
+<p>Im Brazilian!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
+<p>Im a big fan of the Sonic.EXE universe Specially 2017x legacy, i love roblox, indie games in general. I love sinister minds and other pieces of exe media and right now my most treasured obsession is a jigsaw puzzle of garfield from the 80's </p>
+</section>
+
+<section class="interests">
+<h2>My Interests</h2>
+<ul>
+<li>Sonic exe</li>
+<li>Indie games</li>
+<li>Doodling and drawing</li>
+<li>I LOVE MY FRIENDS!!!!!</li>
+<li>AND SPECIALLY.... I LOVE MY BF!</li>
+</ul>
+</section>
+
+<section class="music">
+<h2>Sinister minds best music imo</h2>
+<iframe src="https://open.spotify.com/embed/track/6OdHNWbxCe8pOLhgm9Uz1F?utm_source=generator"></iframe>
+</section>
+
+<section class="map">
+<h2>Here's where i live!</h2>
+<iframe src="https://www.google.com/maps?q=Brazil&output=embed"></iframe>
+</section>
+
+<div id="birthdayNotif">🎉 ME CLICA!!</div>
+
+<div id="birthdayPopup" class="popup">
+  <canvas id="confetti"></canvas>
+
+  <div class="popup-content">
+    <h2>FELIZ ANIVERSARIO PORO!!!!</h2>
+    <img src="music/birthday.png" alt="Birthday Cake">
+    <br>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<audio id="birthdayMusic" src="music/birthday.mp3"></audio>
+
+<footer>
+<p>lel</p>
+</footer>
+
+<script>
+
+const notif = document.getElementById("birthdayNotif");
+const popup = document.getElementById("birthdayPopup");
+const music = document.getElementById("birthdayMusic");
+
+notif.onclick = () => {
+    popup.style.display = "flex";
+    music.currentTime = 0;
+    music.play();
+    startConfetti();
+};
+
+function closePopup() {
+    popup.style.display = "none";
+    music.pause();
+}
+
+/* Confetti */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+let confettiPieces = [];
+
+function startConfetti() {
+    confettiPieces = [];
+    for (let i = 0; i < 150; i++) {
+        confettiPieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 6 + 4,
+            speed: Math.random() * 3 + 2,
+            angle: Math.random() * Math.PI
+        });
+    }
+    animateConfetti();
+}
+
+function animateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    confettiPieces.forEach(p => {
+        p.y += p.speed;
+        p.x += Math.sin(p.angle);
+
+        ctx.fillStyle = `hsl(${Math.random()*360},100%,60%)`;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+
+        if (p.y > canvas.height) p.y = -10;
+    });
+
+    if (popup.style.display === "flex") {
+        requestAnimationFrame(animateConfetti);
+    }
+}
+
+
+let index = 0;
+const slides = document.getElementById("slides");
+const totalSlides = slides.children.length;
+
+function showSlide() {
+    slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+function nextSlide() {
+    index = (index + 1) % totalSlides;
+    showSlide();
+}
+
+function prevSlide() {
+    index = (index - 1 + totalSlides) % totalSlides;
+    showSlide();
+}
+</script>
+
+</body>
+</html>
