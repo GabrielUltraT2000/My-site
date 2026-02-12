@@ -569,51 +569,53 @@ function closePopup() {
     music.pause();
 }
 
-const canvas=document.getElementById("confetti");
-const ctx=canvas.getContext("2d");
+/* ===== Taco confetti ===== */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
 
-const tacoImg=new Image();
-tacoImg.src="music/tacos.png"; // your taco image
+const tacoImg = new Image();
+tacoImg.src = "music/tacos.png"; // taco image path
 
-function resizeCanvas(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
-window.addEventListener("resize",resizeCanvas);
+window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-let confettiPieces=[];
+let confettiPieces = [];
 
-function startConfetti(){
-confettiPieces=[];
-for(let i=0;i<100;i++){
-confettiPieces.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height-canvas.height,
-size:Math.random()*30+20,
-speed:Math.random()*3+2,
-angle:Math.random()*Math.PI
-});
+function startConfetti() {
+    confettiPieces = [];
+    for (let i = 0; i < 100; i++) {
+        confettiPieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 30 + 20,
+            speed: Math.random() * 3 + 2,
+            angle: Math.random() * Math.PI
+        });
+    }
+    animateConfetti();
 }
-animateConfetti();
+
+function animateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    confettiPieces.forEach(p => {
+        p.y += p.speed;
+        p.x += Math.sin(p.angle);
+
+        ctx.drawImage(tacoImg, p.x, p.y, p.size, p.size);
+
+        if (p.y > canvas.height) p.y = -10;
+    });
+
+    if (popup.style.display === "flex") {
+        requestAnimationFrame(animateConfetti);
+    }
 }
 
-function animateConfetti(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-confettiPieces.forEach(p=>{
-p.y+=p.speed;
-p.x+=Math.sin(p.angle);
-
-ctx.drawImage(tacoImg,p.x,p.y,p.size,p.size);
-
-if(p.y>canvas.height)p.y=-10;
-});
-
-if(popup.style.display==="flex"){
-requestAnimationFrame(animateConfetti);
-}
-}
 
 let index=0;
 const slides=document.getElementById("slides");
