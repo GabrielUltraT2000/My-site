@@ -1,4 +1,6 @@
-```html
+can you place the new code in the old one?
+here is it
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -532,14 +534,14 @@ body {
 <iframe src="https://www.google.com/maps?q=Brazil&output=embed"></iframe>
 </section>
 
-<div id="birthdayNotif">🌮 ME CLICA!!</div>
+<div id="birthdayNotif">🎉 ME CLICA!!</div>
 
 <div id="birthdayPopup" class="popup">
   <canvas id="confetti"></canvas>
 
   <div class="popup-content">
-    <h2>FELIZ ANIVERSÁRIO GLEISU!!!</h2>
-    <img src="music/glesor.png">
+    <h2>FELIZ ANIVERSARIO PORO!!!!</h2>
+    <img src="music/glesor.png" alt="Happy Birthday Gleisu">
     <br>
     <button onclick="closePopup()">Close</button>
   </div>
@@ -553,6 +555,8 @@ body {
 
 <script>
 
+const tacoImg = new Image();
+tacoImg.src = "music/taco.png";    
 const notif = document.getElementById("birthdayNotif");
 const popup = document.getElementById("birthdayPopup");
 const music = document.getElementById("birthdayMusic");
@@ -569,12 +573,8 @@ function closePopup() {
     music.pause();
 }
 
-/* ===== Taco confetti ===== */
 const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
-
-const tacoImg = new Image();
-tacoImg.src = "music/tacos.png"; // taco image path
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -617,28 +617,22 @@ function animateConfetti() {
 }
 
 
-let index=0;
-const slides=document.getElementById("slides");
+let index = 0;
+const slides = document.getElementById("slides");
+const totalSlides = slides.children.length;
 
-if(slides){
-const totalSlides=slides.children.length;
-
-function showSlide(){
-slides.style.transform=`translateX(-${index*100}%)`;
+function showSlide() {
+    slides.style.transform = `translateX(-${index * 100}%)`;
 }
 
-function nextSlide(){
-index=(index+1)%totalSlides;
-showSlide();
+function nextSlide() {
+    index = (index + 1) % totalSlides;
+    showSlide();
 }
 
-function prevSlide(){
-index=(index-1+totalSlides)%totalSlides;
-showSlide();
-}
-
-window.nextSlide=nextSlide;
-window.prevSlide=prevSlide;
+function prevSlide() {
+    index = (index - 1 + totalSlides) % totalSlides;
+    showSlide();
 }
 </script>
 
